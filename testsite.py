@@ -1,4 +1,4 @@
-#import chromedriver_binary and selenium
+#import chromedriver_binary  # Adds chromedriver binary to path
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 
 
-#import the web driver for the chrome browser
+
 driver = webdriver.Chrome('/usr/bin/chromedriver')
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--no-sandbox')
@@ -38,7 +38,7 @@ def check_exists_by_xpath(xpath):
     except NoSuchElementException:
         return False
     return True
-#Basic test to see if the xpath is returned
+
 chk = check_exists_by_xpath("HTML/BODY")
 
 assert "No results found." not in driver.page_source
