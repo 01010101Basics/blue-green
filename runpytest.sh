@@ -6,5 +6,5 @@ echo "The Display is: $DISPLAY"
 Xvfb :99 -ac -screen 0 1280x1024x24 &
 # Run the browser test ################
 python3 testsite.py
-# Cleanup after #######################
-sudo killall Xvfb
+
+
