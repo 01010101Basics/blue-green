@@ -34,30 +34,12 @@ Bash Script
 This script looks at the last version, or deployment (blue/green) and then make a decision based on this. (In a live scenario, you would use a parameter on the pipeline)
 Tree:
 
-`├── deployment
-│   ├── blue
-│   │   ├── deploymentblue.yaml
-│   │   └── kustomization.yaml
-│   ├── green
-│   │   ├── deploymentgreen.yaml
-│   │   └── kustomization.yaml
-│   └── kustomization.yaml
-├── ingresscontrolstage.yaml
-├── ingresscontrol.yaml
-├── kustomization.yaml
-├── latest.txt
-├── ns.yaml
-├── service
-│   ├── kustomization.yaml
-│   ├── servicestable.yaml
-│   └── servicestage.yaml
-└── updateimgdeployed.sh.`
 
 
 The Kubernetes Deployment above is broken down pretty logically and simple to read and understand. As I said if you wanted to implement this you could apply more security, you could apply vulnerability scans on the image, you will see I have that commented in the Jenkinsfile as I know the source and that process was running a bit slow on my lab. Mind you I have a 1u small Dell Server I am running things on.
 Kustomization scripts. (You can learn [Here](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/) that make it simple to deploy and update with
 
-``` kubectl apply -k ./ ```
+`kubectl apply -k ./` 
 
 Here is a break down of the directory tree for the Kube Deployment.
 #### Root Directory:
@@ -81,15 +63,15 @@ Once you have tested everything you can with the simple change in the services a
 - servicestable.yaml
 - servicestage.yaml
 
-```selector
+`selector
     app: ilab
     version: green #simply change this from green to blue or visaversa  
-  type: LoadBalancer```
+  type: LoadBalancer`
   
   #### Then simply run this and it will push the networking change:
   
-  ```kubectl apply -k ./```
-  
+  `kubectl apply -k ./
+`  
 #### Jenkinsfile:
 This pipeline works through the following steps:
 - Checks out the application
@@ -203,10 +185,6 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
     }
 }`
 
-### Kubernetes Deployment Pipeline:
-- Pulls the repository.
-- Deploys change changes to the pods.
-- Push changes to the repository.
 
 `pipeline 
     agent {
