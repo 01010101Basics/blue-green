@@ -83,7 +83,7 @@ This pipeline works through the following steps:
 
 At this point it calls the Kubernetes Pipeline, that pipeline applies the changes, updates the changes and pushes them to github.
 
-`pipeline 
+```pipeline 
     agent {
         label 'ilab-dev'
     }
@@ -183,10 +183,10 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
             } 
         } 
     }
-}`
+}``
 
-
-`pipeline 
+#### Kube Pipeline 
+``pipeline 
     agent {
         label "ilab-control"
     }
@@ -209,4 +209,4 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
             }
         }
     }
-}`
+}``
