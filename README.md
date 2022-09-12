@@ -34,7 +34,7 @@ Bash Script
 This script looks at the last version, or deployment (blue/green) and then make a decision based on this. (In a live scenario, you would use a parameter on the pipeline)
 Tree:
 
-```├── deployment
+`├── deployment
 │   ├── blue
 │   │   ├── deploymentblue.yaml
 │   │   └── kustomization.yaml
@@ -51,7 +51,8 @@ Tree:
 │   ├── kustomization.yaml
 │   ├── servicestable.yaml
 │   └── servicestage.yaml
-└── updateimgdeployed.sh.```
+└── updateimgdeployed.sh.`
+
 
 The Kubernetes Deployment above is broken down pretty logically and simple to read and understand. As I said if you wanted to implement this you could apply more security, you could apply vulnerability scans on the image, you will see I have that commented in the Jenkinsfile as I know the source and that process was running a bit slow on my lab. Mind you I have a 1u small Dell Server I am running things on.
 Kustomization scripts. (You can learn [Here](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/) that make it simple to deploy and update with
@@ -99,7 +100,8 @@ This pipeline works through the following steps:
 - Once the test passes it pushes the new build to docker hub.
 
 At this point it calls the Kubernetes Pipeline, that pipeline applies the changes, updates the changes and pushes them to github.
-```pipeline 
+
+`pipeline 
     agent {
         label 'ilab-dev'
     }
@@ -199,15 +201,14 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
             } 
         } 
     }
-}```
+}`
 
 ### Kubernetes Deployment Pipeline:
 - Pulls the repository.
 - Deploys change changes to the pods.
 - Push changes to the repository.
 
-
-```pipeline 
+`pipeline 
     agent {
         label "ilab-control"
     }
@@ -230,6 +231,4 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
             }
         }
     }
-}
-
-{```
+}`
