@@ -33,6 +33,26 @@ Bash Script
 
 This script looks at the last version, or deployment (blue/green) and then make a decision based on this. (In a live scenario, you would use a parameter on the pipeline)
 Tree:
+```
+├── deployment
+│   ├── blue
+│   │   ├── deploymentblue.yaml
+│   │   └── kustomization.yaml
+│   ├── green
+│   │   ├── deploymentgreen.yaml
+│   │   └── kustomization.yaml
+│   └── kustomization.yaml
+├── ingresscontrolstage.yaml
+├── ingresscontrol.yaml
+├── kustomization.yaml
+├── latest.txt
+├── ns.yaml
+├── service
+│   ├── kustomization.yaml
+│   ├── servicestable.yaml
+│   └── servicestage.yaml
+└── updateimgdeployed.sh.
+```
 
 
 
@@ -83,7 +103,8 @@ This pipeline works through the following steps:
 
 At this point it calls the Kubernetes Pipeline, that pipeline applies the changes, updates the changes and pushes them to github.
 
-```pipeline 
+```
+pipeline 
     agent {
         label 'ilab-dev'
     }
@@ -117,7 +138,7 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
                        text:readcounter.toString())
                 }
             }
-        }       
+        }      
         stage('If Docker Image Exist Remove It') {
             steps {
                 sh 'sudo docker rm -f wsite'
@@ -183,10 +204,16 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
             } 
         } 
     }
-}``
+}
+```
 
-#### Kube Pipeline 
-``pipeline 
+#### Kubernetes Deployment Pipeline:
+- Pulls the repository.
+- Deploys change changes to the pods.
+- Push changes to the repository.
+
+```
+pipeline 
     agent {
         label "ilab-control"
     }
@@ -209,4 +236,7 @@ At this point it calls the Kubernetes Pipeline, that pipeline applies the change
             }
         }
     }
-}``
+}
+
+{
+```
